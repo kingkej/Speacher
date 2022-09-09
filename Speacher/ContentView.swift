@@ -12,37 +12,61 @@ struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
+        sortDescriptors: [],
         animation: .default)
-    private var items: FetchedResults<Item>
+    private var items: FetchedResults<FileEntity>
+    
+    @State private var sideBarState: MenuStates = .Library
 
     var body: some View {
         NavigationView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp!, formatter: itemFormatter)")
-                    } label: {
-                        Text(item.timestamp!, formatter: itemFormatter)
-                    }
+            Sidebar(sideBarState: $sideBarState)
+            Main(menuState: $sideBarState)
+        }
+        .onAppear {
+            let chapters = items.last?.chapters as! [ChapterEntity]
+            print(chapters.paragraphs?.count)
+        }
+        .navigationTitle("Library")
+        .toolbar {
+            ToolbarItem(placement: .navigation) {
+                Button(action: { }) {
+                    Image(systemName: "chevron.left")
                 }
-                .onDelete(perform: deleteItems)
+                .disabled(true)
             }
-            .toolbar {
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
+                    
+            ToolbarItem(placement: .navigation) {
+                Button(action: { }) {
+                    Image(systemName: "chevron.right")
+                }
+                .disabled(true)
+            }
+            
+            ToolbarItem(placement: .status) {
+                HStack {
+                    Text("Jordan Singer")
+                    
+                    Divider()
+                    
+                    Image(systemName: "chevron.down")
+                        .foregroundColor(.secondary)
+                }
+                .foregroundColor(.secondary)
+            }
+
+            ToolbarItem(placement: .status) {
+                Button(action: { }) {
+                    Image(systemName: "bell")
                 }
             }
-            Text("Select an item")
         }
     }
 
     private func addItem() {
         withAnimation {
-            let newItem = Item(context: viewContext)
-            newItem.timestamp = Date()
+            let newItem = FileEntity(context: viewContext)
+            newItem.title = "IT"
 
             do {
                 try viewContext.save()
