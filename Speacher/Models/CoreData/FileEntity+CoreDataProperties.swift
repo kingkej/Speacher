@@ -17,9 +17,16 @@ extension FileEntity {
     }
 
     @NSManaged public var title: String?
+    @NSManaged public var language: String?
+    @NSManaged public var readingTime: Int64
     @NSManaged public var titleImage: Data?
     @NSManaged public var paragraphs: [String]?
-    @NSManaged public var chapters: NSSet?
+    @NSManaged public var chapters: Set<ChapterEntity>
+    
+    public var chaptersT: [ChapterEntity] {
+        let chp = chapters
+        return Array(chp)
+    }
 
 }
 

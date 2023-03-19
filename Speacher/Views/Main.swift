@@ -9,14 +9,21 @@ import SwiftUI
 
 struct Main: View {
     @Binding var menuState: MenuStates
+    @State private var file: FileEntity? = nil
+    
     
     var body: some View {
         Group {
             if menuState == .Library {
-                Library()
+                Library(menuState: $menuState, selectedFile: $file)
             }
+            
             else if menuState == .Settings {
                 Settings()
+            }
+            
+            else if menuState == .OpenFile {
+                FileView(file: file!)
             }
         }
     }

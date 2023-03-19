@@ -7,13 +7,26 @@
 
 import Foundation
 import SwiftUI
+import UniformTypeIdentifiers
 
 struct Sidebar: View {
-    @Binding var sideBarState: MenuStates
-    @State var selection: Set<Int> = [0]
-    @State private var presentImporter = false
-    let networker = Networker()
     @Environment(\.managedObjectContext) private var viewContext
+    
+    @Binding var sideBarState: MenuStates
+    
+    @State var selection: Set<Int> = [0]
+    @State private var showingAlert = false
+    @State private var alertTitle = ""
+    
+    @State private var presentEpubImporter = false
+    @State private var presentPdfImporter = false
+    @State private var presentDocImporter = false
+    @State private var presentFb2Importer = false
+    
+    let networker = Networker()
+    let docType = UTType(tag: "docx", tagClass: .filenameExtension, conformingTo: nil)
+    let fb2Type = UTType(tag: "fb2", tagClass: .filenameExtension, conformingTo: nil)
+    
     var body: some View {
         List(selection: self.$selection) {
             Group {
@@ -33,6 +46,7 @@ struct Sidebar: View {
                 .buttonStyle(PlainButtonStyle())
             }
             
+            
             Divider()
             
             Group {
@@ -42,11 +56,11 @@ struct Sidebar: View {
                     .foregroundColor(.secondary)
                 
                 Button(action: {
-                    presentImporter = true
+                    presentPdfImporter = true
                 }) {
                     Text("Add PDF")
                 }
-                .fileImporter(isPresented: $presentImporter, allowedContentTypes: [.pdf]) { result in
+                .fileImporter(isPresented: $presentPdfImporter, allowedContentTypes: [.pdf]) { result in
                             switch result {
                             case .success(let url):
                                 if url.startAccessingSecurityScopedResource() {
@@ -56,7 +70,7 @@ struct Sidebar: View {
                                         return
                                     }
                                     Task {
-                                        await FetchDataAndSave(bytes: docData)
+                                        await FetchDataAndSave(bytes: docData, fileType: .pdf)
                                     }
                                 }
                             case .failure(let error):
@@ -64,26 +78,112 @@ struct Sidebar: View {
                     }
                 }
                 
-                Text("Add ePub")
+                Button(action: {
+                    presentEpubImporter = true
+                }) {
+                    Text("Add ePub")
+                }
+                .fileImporter(isPresented: $presentEpubImporter, allowedContentTypes: [.epub]) { result in
+                            switch result {
+                            case .success(let url):
+                                if url.startAccessingSecurityScopedResource() {
+                                    let docData = try? Data(contentsOf: url)
+                                    guard let docData = docData else {
+                                        print("Could not receive data from server")
+                                        return
+                                    }
+                                    Task {
+                                        await FetchDataAndSave(bytes: docData, fileType: .epub)
+                                    }
+                                }
+                            case .failure(let error):
+                                print(error)
+                    }
+                }
+                
+                Button(action: {
+                    presentDocImporter = true
+                }) {
+                    Text("Add Doc")
+                }
+                .fileImporter(isPresented: $presentDocImporter, allowedContentTypes: [docType!]) { result in
+                            switch result {
+                            case .success(let url):
+                                if url.startAccessingSecurityScopedResource() {
+                                    let docData = try? Data(contentsOf: url)
+                                    guard let docData = docData else {
+                                        print("Could not receive data from server")
+                                        return
+                                    }
+                                    Task {
+                                        await FetchDataAndSave(bytes: docData, fileType: .doc)
+                                    }
+                                }
+                            case .failure(let error):
+                                print(error)
+                    }
+                }
+                
+                Button(action: {
+                    presentFb2Importer = true
+                }) {
+                    Text("Add FB2")
+                }
+                .fileImporter(isPresented: $presentFb2Importer, allowedContentTypes: [fb2Type!]) { result in
+                            switch result {
+                            case .success(let url):
+                                if url.startAccessingSecurityScopedResource() {
+                                    let docData = try? Data(contentsOf: url)
+                                    guard let docData = docData else {
+                                        print("Could not receive data from server")
+                                        return
+                                    }
+                                    Task {
+                                        await FetchDataAndSave(bytes: docData, fileType: .fb2)
+                                    }
+                                }
+                            case .failure(let error):
+                                print(error)
+                    }
+                }
             }
         }
-       
+        .alert("title", isPresented: $showingAlert) {
+                Button("OK", role: .cancel) { }
+            }
         .listStyle(SidebarListStyle())
         .frame(minWidth: 192, idealWidth: 192, maxWidth: 256, maxHeight: .infinity)
     }
     
-    func FetchDataAndSave(bytes: Data) async {
+    func FetchDataAndSave(bytes: Data, fileType: DocymentTypes) async {
             do {
-                var recognitionResult = try await networker.getPdfData(fileBytes: bytes)
-                var file = FileEntity(context: viewContext)
+                let recognitionResult = try await networker.getDocumentData(documentBytes: bytes, documentType: fileType)
+                
+                guard let recognitionResult = recognitionResult.textDetectedResponse else {
+                    alertTitle = "Unable to open the file"
+                    showingAlert = true
+                    return
+                }
+
+                let file = FileEntity(context: viewContext)
                 file.title = recognitionResult.title
+                file.titleImage = recognitionResult.titleImage
+                file.paragraphs = recognitionResult.paragraphs
+                file.language = recognitionResult.language
+                file.readingTime = Int64(recognitionResult.readingTime)
                 
-                var chapter = ChapterEntity(context: viewContext)
-                chapter.title = "testy"
-                chapter.paragraphs = ["test"]
-                
-                file.addToChapters(chapter)
-                addItem(recognitionResult: recognitionResult)
+                var chaptersSet: Set<ChapterEntity> = []
+                var counter: Int16 = 0
+                recognitionResult.chapters?.forEach({ chapter in
+                    let chapterEntity = ChapterEntity(context: viewContext)
+                    chapterEntity.ObjectId = counter
+                    chapterEntity.title = chapter.title
+                    chapterEntity.paragraphs = chapter.paragraphs
+                    chaptersSet.insert(chapterEntity)
+                })
+                print()
+                file.chapters = chaptersSet
+                try viewContext.save()
             } catch {
                 print("Error", error)
             }
@@ -102,3 +202,4 @@ struct Sidebar: View {
         }
     }
 }
+

@@ -10,6 +10,7 @@ import Foundation
 struct TextDetectedResponse: Identifiable, Decodable {
     var id = UUID()
     var title: String?
+    var readingTime: Int
     var language: String?
     var titleImage: Data?
     let paragraphs: [String]?
@@ -21,6 +22,7 @@ struct TextDetectedResponse: Identifiable, Decodable {
         case titleImage
         case paragraphs
         case chapters
+        case readingTime
     }
     
 }

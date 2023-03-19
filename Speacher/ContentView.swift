@@ -23,10 +23,6 @@ struct ContentView: View {
             Sidebar(sideBarState: $sideBarState)
             Main(menuState: $sideBarState)
         }
-        .onAppear {
-            let chapters = items.last?.chapters as! [ChapterEntity]
-            print(chapters.paragraphs?.count)
-        }
         .navigationTitle("Library")
         .toolbar {
             ToolbarItem(placement: .navigation) {

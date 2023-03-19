@@ -22,11 +22,15 @@
 		AE23AB4E28CA6A0400A2CFBB /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE23AB4D28CA6A0400A2CFBB /* Settings.swift */; };
 		AE23AB5128CA805900A2CFBB /* Networker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE23AB5028CA805900A2CFBB /* Networker.swift */; };
 		AE23AB5328CA809500A2CFBB /* TextDetectedResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE23AB5228CA809500A2CFBB /* TextDetectedResponse.swift */; };
+		AE2B1C2128CCCFBE0055A407 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2B1C2028CCCFBE0055A407 /* Image.swift */; };
+		AE2B1C2328CE0B6C0055A407 /* DocumentTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2B1C2228CE0B6C0055A407 /* DocumentTypes.swift */; };
+		AE2B1C2528CE0DAC0055A407 /* ApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2B1C2428CE0DAC0055A407 /* ApiError.swift */; };
 		AE7B672328CB332500AACFC1 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AE7B672128CB332500AACFC1 /* DataModel.xcdatamodeld */; };
 		AE7B676028CB392400AACFC1 /* ChapterEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE7B675C28CB392400AACFC1 /* ChapterEntity+CoreDataClass.swift */; };
 		AE7B676128CB392400AACFC1 /* ChapterEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE7B675D28CB392400AACFC1 /* ChapterEntity+CoreDataProperties.swift */; };
 		AE7B676228CB392400AACFC1 /* FileEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE7B675E28CB392400AACFC1 /* FileEntity+CoreDataClass.swift */; };
 		AE7B676328CB392400AACFC1 /* FileEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE7B675F28CB392400AACFC1 /* FileEntity+CoreDataProperties.swift */; };
+		AE7B676528CB5B7D00AACFC1 /* FileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE7B676428CB5B7D00AACFC1 /* FileView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,11 +70,15 @@
 		AE23AB4D28CA6A0400A2CFBB /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		AE23AB5028CA805900A2CFBB /* Networker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networker.swift; sourceTree = "<group>"; };
 		AE23AB5228CA809500A2CFBB /* TextDetectedResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextDetectedResponse.swift; sourceTree = "<group>"; };
+		AE2B1C2028CCCFBE0055A407 /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
+		AE2B1C2228CE0B6C0055A407 /* DocumentTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentTypes.swift; sourceTree = "<group>"; };
+		AE2B1C2428CE0DAC0055A407 /* ApiError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiError.swift; sourceTree = "<group>"; };
 		AE7B672228CB332500AACFC1 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		AE7B675C28CB392400AACFC1 /* ChapterEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChapterEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		AE7B675D28CB392400AACFC1 /* ChapterEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChapterEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		AE7B675E28CB392400AACFC1 /* FileEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		AE7B675F28CB392400AACFC1 /* FileEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		AE7B676428CB5B7D00AACFC1 /* FileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,10 +109,6 @@
 		AE23AB0728CA5D9300A2CFBB = {
 			isa = PBXGroup;
 			children = (
-				AE7B675C28CB392400AACFC1 /* ChapterEntity+CoreDataClass.swift */,
-				AE7B675D28CB392400AACFC1 /* ChapterEntity+CoreDataProperties.swift */,
-				AE7B675E28CB392400AACFC1 /* FileEntity+CoreDataClass.swift */,
-				AE7B675F28CB392400AACFC1 /* FileEntity+CoreDataProperties.swift */,
 				AE23AB1228CA5D9300A2CFBB /* Speacher */,
 				AE23AB2928CA5D9400A2CFBB /* SpeacherTests */,
 				AE23AB3328CA5D9400A2CFBB /* SpeacherUITests */,
@@ -125,6 +129,7 @@
 		AE23AB1228CA5D9300A2CFBB /* Speacher */ = {
 			isa = PBXGroup;
 			children = (
+				AE2B1C1F28CCCFAB0055A407 /* Extensions */,
 				AE23AB4F28CA804400A2CFBB /* Services */,
 				AE23AB4828CA64A500A2CFBB /* Models */,
 				AE23AB4328CA619100A2CFBB /* Views */,
@@ -171,6 +176,7 @@
 				AE23AB4628CA626100A2CFBB /* Library.swift */,
 				AE23AB4B28CA698E00A2CFBB /* Main.swift */,
 				AE23AB4D28CA6A0400A2CFBB /* Settings.swift */,
+				AE7B676428CB5B7D00AACFC1 /* FileView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -178,8 +184,11 @@
 		AE23AB4828CA64A500A2CFBB /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				AE2B1C1E28CCCF9D0055A407 /* CoreData */,
 				AE23AB4928CA64BE00A2CFBB /* MenuStates.swift */,
 				AE23AB5228CA809500A2CFBB /* TextDetectedResponse.swift */,
+				AE2B1C2228CE0B6C0055A407 /* DocumentTypes.swift */,
+				AE2B1C2428CE0DAC0055A407 /* ApiError.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -190,6 +199,25 @@
 				AE23AB5028CA805900A2CFBB /* Networker.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		AE2B1C1E28CCCF9D0055A407 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				AE7B675C28CB392400AACFC1 /* ChapterEntity+CoreDataClass.swift */,
+				AE7B675D28CB392400AACFC1 /* ChapterEntity+CoreDataProperties.swift */,
+				AE7B675E28CB392400AACFC1 /* FileEntity+CoreDataClass.swift */,
+				AE7B675F28CB392400AACFC1 /* FileEntity+CoreDataProperties.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		AE2B1C1F28CCCFAB0055A407 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				AE2B1C2028CCCFBE0055A407 /* Image.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -208,6 +236,8 @@
 			dependencies = (
 			);
 			name = Speacher;
+			packageProductDependencies = (
+			);
 			productName = Speacher;
 			productReference = AE23AB1028CA5D9300A2CFBB /* Speacher.app */;
 			productType = "com.apple.product-type.application";
@@ -280,6 +310,8 @@
 				Base,
 			);
 			mainGroup = AE23AB0728CA5D9300A2CFBB;
+			packageReferences = (
+			);
 			productRefGroup = AE23AB1128CA5D9300A2CFBB /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -326,16 +358,20 @@
 				AE7B672328CB332500AACFC1 /* DataModel.xcdatamodeld in Sources */,
 				AE23AB4528CA61BF00A2CFBB /* Sidebar.swift in Sources */,
 				AE23AB5328CA809500A2CFBB /* TextDetectedResponse.swift in Sources */,
+				AE7B676528CB5B7D00AACFC1 /* FileView.swift in Sources */,
 				AE23AB4C28CA698E00A2CFBB /* Main.swift in Sources */,
 				AE23AB1D28CA5D9400A2CFBB /* Persistence.swift in Sources */,
 				AE7B676328CB392400AACFC1 /* FileEntity+CoreDataProperties.swift in Sources */,
 				AE7B676128CB392400AACFC1 /* ChapterEntity+CoreDataProperties.swift in Sources */,
 				AE23AB1628CA5D9300A2CFBB /* ContentView.swift in Sources */,
 				AE7B676228CB392400AACFC1 /* FileEntity+CoreDataClass.swift in Sources */,
+				AE2B1C2128CCCFBE0055A407 /* Image.swift in Sources */,
+				AE2B1C2528CE0DAC0055A407 /* ApiError.swift in Sources */,
 				AE23AB5128CA805900A2CFBB /* Networker.swift in Sources */,
 				AE23AB1428CA5D9300A2CFBB /* SpeacherApp.swift in Sources */,
 				AE23AB4E28CA6A0400A2CFBB /* Settings.swift in Sources */,
 				AE23AB4A28CA64BE00A2CFBB /* MenuStates.swift in Sources */,
+				AE2B1C2328CE0B6C0055A407 /* DocumentTypes.swift in Sources */,
 				AE23AB4728CA626100A2CFBB /* Library.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

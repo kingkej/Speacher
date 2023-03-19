@@ -15,10 +15,11 @@ extension ChapterEntity {
     @nonobjc public class func fetchRequest() -> NSFetchRequest<ChapterEntity> {
         return NSFetchRequest<ChapterEntity>(entityName: "ChapterEntity")
     }
-
+    
+    @NSManaged public var ObjectId: Int16
     @NSManaged public var title: String?
     @NSManaged public var paragraphs: [String]?
-    @NSManaged public var chapter: NSManagedObject?
+    @NSManaged public var chapterToFile: FileEntity
 
 }
 

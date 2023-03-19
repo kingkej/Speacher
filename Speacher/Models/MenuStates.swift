@@ -12,4 +12,5 @@ enum MenuStates: Int {
     case Settings 
     case AddPdf
     case AddEpub
+    case OpenFile
 }
